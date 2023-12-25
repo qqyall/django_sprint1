@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="ru"> 
+  <head>
+    {% block title %}Публикации в категории - {{category_slug}}{% endblock title %}
+  </head>
+  <body>	   
+    {% block header %}{% endblock header %}
+    <main>
+      {% block content %}
+        <div class="container py-5">
+          <h1>Публикации в категории - {{category_slug}}</h1>   
+        </div>
+      {% endblock content %}
+    </main>
+    {% block footer %}{% endblock footer %}
+  </body>
+</html>
