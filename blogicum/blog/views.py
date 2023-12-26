@@ -1,8 +1,8 @@
 from django.shortcuts import render
+from django.http import Http404
 
 
-# Create your views here.
-posts = [
+posts: list[dict[str, str | int]] = [
     {
         'id': 0,
         'location': 'Остров отчаянья',
@@ -46,16 +46,23 @@ posts = [
 ]
 
 
+by_id_key_posts = {post['id']: post for post in posts}
+
+
 def index(request):
     template = 'blog/index.html'
-    context = {'post_list': posts[::-1]}
+    context = {'post_list':
+               [by_id_key_posts[i] for i in reversed(by_id_key_posts.keys())]}
     return render(request, template, context)
 
 
-def post_detail(request, id):
+def post_detail(request, post_id):
     template = 'blog/detail.html'
-    context = {'post': posts[id]}
-    return render(request, template, context)
+    try:
+        context = {'post': by_id_key_posts[post_id]}
+        return render(request, template, context)
+    except KeyError:
+        raise Http404
 
 
 def category_posts(request, category_slug):

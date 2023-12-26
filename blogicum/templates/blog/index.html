@@ -1,37 +1,14 @@
 {% extends "base.html" %}
 {% load static %}
 <!DOCTYPE html>
-<html lang="ru"> 
-  <head>
-    {% block title %}Лента записей{% endblock %}
-  </head>
-  <body>
-      {% block header %} {% endblock %}
-      {%block content %}
-      <div class="container py-5">
-        <h1>Лента записей</h1>            
-        {% for post in post_list %}
-          <hr>
-          <article>
-            <ul>
-              <li>
-                Место: {{post.location}}
-              </li>
-              <li>
-                Дата: {{post.date}}
-              </li>
-              <li>
-                Категория: <a href="category/{{post.category}}">{{post.category}}</a>
-              </li>
-            </ul>
-            <p>
-              {{post.text|truncatewords:10}}
-            </p>
-            <a href="posts/{{ post.id }}">Читать полный текст</a>
-          </article>
-        {% endfor %}
-      </div>
-    {% endblock %}
-    {% block footer %} {% endblock %}
-  </body>
-</html>
+{% block title %}Лента записей{% endblock %}
+<body>
+    {% block header %} {% endblock %}
+    {%block content %}
+      <h1>Лента записей</h1>       
+      {% for post in post_list %}
+        {% include "includes/post_card.html" %}
+      {% endfor %}
+  {% endblock %}
+  {% block footer %} {% endblock %}
+</body>

@@ -1,34 +1,13 @@
 {% extends "base.html" %}
 {% load static %}
 <!DOCTYPE html>
-<html lang="ru"> 
-  <head>    
-    {% block title %}{{post.location}}.{{post.date}}{% endblock title %}
-  </head>
-  <body>	   
-    {% block header %}{% endblock header %}
-    <main>
-      {% block content %}
-        <div class="container py-5">
-          <article>
-            <ul>
-              <li>
-                Место: {{post.location}}
-              </li>
-              <li>
-                Дата: {{post.date}}
-              </li>
-              <li>
-                Категория: <a href="{% url "blog:index" %}">{{post.category}}</a>
-              </li>
-            </ul>         
-            <p>
-              {{post.text}}
-            </p>          
-          </article>                
-        </div>
-      {% endblock content %}
-    </main>
-    {% block footer %}{% endblock footer %}
-  </body>
-</html>
+{% block title %}{{post.location}}. {{post.date}}{% endblock title %}
+<body>	   
+  {% block header %}{% endblock header %}
+  <main>
+    {% block content %}
+      {% include "includes/post_card.html" %}
+    {% endblock content %}
+  </main>
+  {% block footer %}{% endblock footer %}
+</body>
