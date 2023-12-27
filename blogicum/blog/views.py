@@ -1,6 +1,6 @@
+from typing import Any
 from django.shortcuts import render
 from django.http import Http404
-from typing import Any
 
 
 posts: list[dict[str, Any]] = [
@@ -47,23 +47,22 @@ posts: list[dict[str, Any]] = [
 ]
 
 
-by_id_key_posts = {post['id']: post for post in posts}
+posts_dict = {post['id']: post for post in posts}
 
 
 def index(request):
     template = 'blog/index.html'
-    context = {'post_list':
-               [by_id_key_posts[i] for i in reversed(by_id_key_posts.keys())]}
+    context = {'post_list': posts[::-1]}
     return render(request, template, context)
 
 
 def post_detail(request, post_id):
     template = 'blog/detail.html'
     try:
-        context = {'post': by_id_key_posts[post_id]}
+        context = {'post': posts_dict[post_id]}
         return render(request, template, context)
     except KeyError:
-        raise Http404
+        raise Http404(f"Post with id={post_id} not found.")
 
 
 def category_posts(request, category_slug):
