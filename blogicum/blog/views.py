@@ -1,4 +1,5 @@
 from typing import Any
+
 from django.shortcuts import render
 from django.http import Http404
 
@@ -62,7 +63,7 @@ def post_detail(request, post_id):
         context = {'post': posts_dict[post_id]}
         return render(request, template, context)
     except KeyError:
-        raise Http404(f"Post with id={post_id} not found.")
+        raise Http404(f'Post with id={post_id} not found.')
 
 
 def category_posts(request, category_slug):
